@@ -1,1 +1,1 @@
-A modified version of the Sonic 3 cast's sprites made by me, as a mod for Sonic 3 AIR. Visit the mod page for more details.
+A modified version of the Sonic 3 cast's sprites made by me, as a mod for Sonic 3 AIR. Visit the mod page for more details. In order to use, simply download and drop into your Sonic 3 AIR mods directory.
