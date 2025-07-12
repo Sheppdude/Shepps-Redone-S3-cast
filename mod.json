@@ -1,0 +1,87 @@
+{
+	"Metadata": {
+		"Name": "Sheppdude's Cast",
+		"Author": "Sheppdude",
+		"Description": "My attempt to make more refined and expressive character sprites (May or may not have accomplished it's task)",
+		"URL": "https://gamebanana.com/wips/91453",
+		"ModVersion": "0.0.3b"
+	},
+	"Settings": {
+		"List": [
+			{
+				"InternalName": "TwirlOn",
+				"DisplayName": "Twirl animation",
+				"Variable": "twirlOn",
+				"Category": "Animation",
+				"DefaultValue": "0",
+				"Options": {
+					"0": "Disabled",
+					"1": "Enabled"
+				}
+			
+			},
+			{
+				"InternalName": "PeelOutStyle",
+				"DisplayName": "Max Speed animation",
+				"Variable": "peelOutStyle",
+				"Category": "Animation",
+				"DefaultValue": "0",
+				"Options": {
+					"0": "CD",
+					"1": "Mania"
+				}
+			
+			},
+			{
+				"InternalName": "SmoothAnimation",
+				"DisplayName": "Smooth animations for Sonic",
+				"Variable": "smoothAnimation",
+				"Category": "Animation",
+				"DefaultValue": "1",
+				"Options": {
+					"0": "Off",
+					"1": "On"
+				}
+			
+			},
+			{
+				"InternalName": "FallAnim",
+				"DisplayName": "Sonic's Falling animation",
+				"Variable": "fallAnim",
+				"Category": "Animation",
+				"DefaultValue": "1",
+				"Options": {
+					"0": "Off",
+					"1": "Airwalk"
+				}
+			
+			},
+			{
+				"InternalName": "ColorPalette",
+				"DisplayName": "Sonic's Color set",
+				"Variable": "colorPalette",
+				"Category": "Aesthetic",
+				"DefaultValue": "0",
+				"Options": {
+					"0": "Shepp's S3 Style",
+					"1": "Original S3 Style",
+					"2": "S2 Style",
+					"3": "S1 Style"
+				}
+			
+			},
+			{
+				"InternalName": "SonicEyeColor",
+				"DisplayName": "Sonic's Eye Color",
+				"Variable": "sonicEyeColor",
+				"Category": "Aesthetic",
+				"DefaultValue": "0",
+				"Options": {
+					"0": "Green",
+					"1": "Black"
+				}
+			
+			}
+		]
+	}
+}

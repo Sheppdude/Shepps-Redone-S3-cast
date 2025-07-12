@@ -1,0 +1,32 @@
+global u8 colorPalette = 0 //For sonic's palette
+global u8 sonicEyeColor = 0 // For his eye color
+
+function string getCharacterPaletteKey(u8 character)
+{
+    if (character == CHARACTER_SONIC && (u8[0xffffe654] == 0x00))
+    {
+        if (sonicEyeColor == 0)
+        {
+            if (colorPalette == 0)
+                return "character_palette_sonic"
+            if (colorPalette == 1)
+                return "character_palette_sonic_og_alteyes" // Naming convention is swapped
+            if (colorPalette == 2)
+                return "character_palette_sonic_s2_alteyes"
+            if (colorPalette == 3)
+                return "character_palette_sonic_s1_alteyes"
+        }
+        else //if (sonicEyeColor == 1)
+        {
+            if (colorPalette == 0)
+                return "character_palette_sonic_alteyes"
+            if (colorPalette == 1)
+                return "character_palette_sonic_og"
+            if (colorPalette == 2)
+                return "character_palette_sonic_s2"
+            if (colorPalette == 3)
+                return "character_palette_sonic_s1"
+        }
+    }
+    return base.getCharacterPaletteKey(character)
+}

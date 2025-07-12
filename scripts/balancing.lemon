@@ -1,0 +1,122 @@
+/* If anyone is here, then I think you
+might know what this code is for... */
+
+function void checkForBalancing()
+{
+	s8 balancing = 0
+
+	if (char.flags & char.flag.ON_OBJECT)
+	{
+		// Standing on an object, get its address in RAM
+		A1 = 0xffff0000 + char.object_standing_on
+
+		// Some kind of "no balancing here" flag?
+		//  -> I could not find any use-case for it, but using it in AIR for the mgz_spinwheeltrigger
+		if ((u8[A1 + 0x2a] & 0x80) == 0)
+		{
+			if (char.character == CHARACTER_SONIC)
+			{
+				D1.u16 = objA1.box_size.x + char.position.x.u16 - objA1.position.x.u16
+				D2.u16 = objA1.box_size.x * 2 - 2
+
+				if (D1.s16 < 2)
+				{
+					balancing = -1
+					if (D1.s16 < -4)
+						balancing = -2
+				}
+				else if (D1.s16 >= D2.s16)
+				{
+					balancing = 1
+					if (D1.s16 >= D2.s16 + 6)
+						balancing = 2
+				}
+			}
+			else if (char.character == CHARACTER_TAILS)
+			{
+				D1.u16 = objA1.box_size.x + char.position.x.u16 - objA1.position.x.u16
+				D2.u16 = objA1.box_size.x * 2 - 4
+
+				if (D1.s16 < 4)
+				{
+					balancing = -1
+				}
+				else if (D1.s16 >= D2.s16)
+				{
+					balancing = 1
+				}
+			}
+			else if (char.character == CHARACTER_KNUCKLES)
+			{
+				D1.u16 = objA1.box_size.x + char.position.x.u16 - objA1.position.x.u16
+				D2.u16 = objA1.box_size.x * 2 - 2
+
+				if (D1.s16 < 2)
+				{
+					balancing = -1
+				}
+				else if (D1.s16 >= D2.s16)
+				{
+					balancing = 1
+				}
+			}
+		}
+	}
+	else
+	{
+		// Not on an object
+		D3.u16 = char.position.x.u16
+		Character.checkGroundEdgeCollision()
+
+		if (D1.s16 >= 0x0c)
+		{
+			if (char.angle_sensor_1 == 0x03)
+			{
+				balancing = 1
+				if (char.character == CHARACTER_SONIC)
+				{
+					D3.u16 = char.position.x.u16 - 6
+					Character.checkGroundEdgeCollision()
+					if (D1.s16 >= 0x0c)
+						balancing = 2
+				}
+			}
+			else if (char.angle_sensor_2 == 0x03)
+			{
+				balancing = -1
+				if (char.character == CHARACTER_SONIC)
+				{
+					D3.u16 = char.position.x.u16 + 6
+					Character.checkGroundEdgeCollision()
+					if (D1.s16 >= 0x0c)
+						balancing = -2
+				}
+			}
+		}
+	}
+
+	if (balancing != 0)
+	{
+		// Set balancing state 1 or 2 (only Sonic actually uses balancing state 2)
+		char.state = (abs(balancing) < 2) ? char.state.BALANCING1 : char.state.BALANCING2
+
+		// Face left or right, depending on where we are balancing
+		bool wasFacingLeft = (char.flags & char.flag.FACING_LEFT)
+		bool nowFacingLeft = (balancing < 0)
+
+		if (nowFacingLeft)
+			char.flags |= char.flag.FACING_LEFT
+		else
+			char.flags &= ~char.flag.FACING_LEFT
+
+		if (char.character == CHARACTER_KNUCKLES)
+		{
+			if (wasFacingLeft != nowFacingLeft)
+			{
+				char.state.former = char.state.BALANCING1
+				char.animation.frame = 4
+				char.animation.timer = 0
+			}
+		}
+	}
+}

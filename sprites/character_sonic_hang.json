@@ -1,0 +1,22 @@
+{
+	"sonic_hang_0":  { "File": "character_sonic_hang.bmp", "Rect": "0,0,36,48", "Center": "16,24" },
+	"sonic_hang_1":  { "File": "character_sonic_hang.bmp", "Rect": "36,0,36,48", "Center": "16,24" },
+	"sonic_hang_2":  { "File": "character_sonic_hang.bmp", "Rect": "72,0,36,48", "Center": "16,24" },
+	"sonic_hang_3":  { "File": "character_sonic_hang.bmp", "Rect": "108,0,36,48", "Center": "16,24" },
+	"sonic_hang_4":  { "File": "character_sonic_hang.bmp", "Rect": "144,0,36,48", "Center": "16,24" },
+	"sonic_hang_5":  { "File": "character_sonic_hang.bmp", "Rect": "180,0,36,48", "Center": "16,24" },
+	"sonic_hang_6":  { "File": "character_sonic_hang.bmp", "Rect": "216,0,36,48", "Center": "16,24" },
+	"sonic_hang_7":  { "File": "character_sonic_hang.bmp", "Rect": "252,0,36,48", "Center": "16,24" },
+	"sonic_monkeybar_0":  { "File": "character_sonic_monkeybar.bmp", "Rect": "0,0,40,48", "Center": "22,24" },
+	"sonic_monkeybar_1":  { "File": "character_sonic_monkeybar.bmp", "Rect": "40,0,40,48", "Center": "22,24" },
+	"sonic_monkeybar_2":  { "File": "character_sonic_monkeybar.bmp", "Rect": "80,0,40,48", "Center": "22,24" },
+	"sonic_monkeybar_3":  { "File": "character_sonic_monkeybar.bmp", "Rect": "120,0,40,48", "Center": "22,24" },
+	"sonic_monkeybar_4":  { "File": "character_sonic_monkeybar.bmp", "Rect": "160,0,40,48", "Center": "22,24" },
+	"sonic_monkeybar_5":  { "File": "character_sonic_monkeybar.bmp", "Rect": "200,0,40,48", "Center": "22,24" },
+	"sonic_monkeybar_6":  { "File": "character_sonic_monkeybar.bmp", "Rect": "240,0,40,48", "Center": "22,24" },
+	"sonic_monkeybar_7":  { "File": "character_sonic_monkeybar.bmp", "Rect": "280,0,40,48", "Center": "22,24" },
+	"sonic_monkeybar_8":  { "File": "character_sonic_monkeybar.bmp", "Rect": "320,0,40,48", "Center": "22,24" },
+	"sonic_monkeybar_9":  { "File": "character_sonic_monkeybar.bmp", "Rect": "360,0,40,48", "Center": "22,24" },
+	"sonic_monkeybar_10":  { "File": "character_sonic_monkeybar.bmp", "Rect": "400,0,40,48", "Center": "22,24" },
+	"sonic_monkeybar_11":  { "File": "character_sonic_monkeybar.bmp", "Rect": "440,0,40,48", "Center": "22,24" }
+}

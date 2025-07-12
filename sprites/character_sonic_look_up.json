@@ -1,0 +1,9 @@
+{
+    "sonic_look_up_0": { "File": "character_sonic_look_up.bmp", "Rect":  "0,0,40,40", "Center": "22,20" },
+    "sonic_look_up_1": { "File": "character_sonic_look_up.bmp", "Rect":  "40,0,40,40", "Center": "22,20" },
+    "sonic_look_up_2": { "File": "character_sonic_look_up.bmp", "Rect":  "80,0,40,40", "Center": "22,20" },
+    "sonic_look_up_3": { "File": "character_sonic_look_up.bmp", "Rect":  "120,0,40,40", "Center": "22,20" },
+    "sonic_look_up_4": { "File": "character_sonic_look_up.bmp", "Rect":  "160,0,40,40", "Center": "22,20" },
+    "sonic_look_up_5": { "File": "character_sonic_look_up.bmp", "Rect":  "200,0,40,40", "Center": "22,20" },
+    "sonic_look_up_6": { "File": "character_sonic_look_up.bmp", "Rect":  "240,0,40,40", "Center": "22,20" }
+}
