@@ -82,279 +82,8 @@ function bool Standalone.drawCharacterSprite(u8 character, u8 variant, s16 px, s
 	{
 		if (character == CHARACTER_SONIC)
 		{
-			if (!super.active && smoothAnimation != 0)
-			{
-				// Special handling for Drop Dash & Super Peel-Out
-				if (animationSprite >= 0x21 && animationSprite <= 0x30 && sonic.fastrunanim.timer == 0)
-				{
-
-					animationSpriteEx = (abs(char.groundspeed) > 0xa99 ? level.framecounter : (level.framecounter >> 1)) % 8
-					key = stringformat("sonic_run_%d", animationSpriteEx)
-
-					if (!Game.getSetting(SETTING_SMOOTH_ROTATION) && char.state != char.state.SONIC_DROPDASH)
-					{
-						angle = (animationSprite - 0x21) / 4 * 0xe0
-						if ((char.flags & char.flag.FACING_LEFT) == (global.inv_gravity == 0))
-							angle = -angle
-						animationSprite = 0x21 + (animationSprite - 0x21) % 4
-					}
-
-				}
-				else
-				{
-					if (animationSprite >= 0x01 && animationSprite <= 0x21 && sonic.fastrunanim.timer == 0)
-					{
-						animationSpriteEx = (level.framecounter >> 2) % 10
-						key = stringformat("sonic_walk_%d", animationSpriteEx)
-
-						if (abs(char.groundspeed) > 0x500)
-						{
-							runTimer++
-							animationSpriteEx = (runTimer >> 1) % 9
-							key = stringformat("sonic_jog_%d", animationSpriteEx)
-						}
-
-						if (!Game.getSetting(SETTING_SMOOTH_ROTATION) && char.state != char.state.SONIC_DROPDASH)
-						{
-							angle = (animationSprite - 0x01) / 8 * 0xe0
-							if ((char.flags & char.flag.FACING_LEFT) == (global.inv_gravity == 0))
-									angle = -angle
-							animationSprite = 0x01 + (animationSprite - 0x01) % 8
-						}
-
-					}
-				
-				}
-
-				if (char.state == char.state.LOOKING_UP)
-				{
-					if (lookUpTime < 21)
-						lookUpTime++
-				}
-				else if (lookUpTime > 0)
-						lookUpTime--
-					
-				if (char.state == char.state.LOOKING_UP || char.state == char.state.STANDING)
-				{
-					if (lookUpTime < 21) && (lookUpTime > 0)
-					{
-						animationSpriteEx = (lookUpTime >> 2) % 7
-						key = stringformat("sonic_look_up_%d", animationSpriteEx)
-					}
-				}
-
-				if (char.state == char.state.COWERING)
-				{
-					if (lookDownTime < 18)
-						lookDownTime++
-				}
-				else if (lookDownTime > 0)
-					lookDownTime--
-
-				if (char.state == char.state.COWERING || char.state == char.state.STANDING)
-				{
-					
-					if (lookDownTime < 18) && (lookDownTime > 0)
-					{
-						animationSpriteEx = (lookDownTime >> 2) % 6
-						key = stringformat("sonic_look_down_%d", animationSpriteEx)
-					}
-				}
-				
-				
-				if (animationSprite >= 0x90) && (animationSprite <= 0x92)
-				{
-					if (isOnMHZElevators)
-					{
-						if (hangTimer != 0)
-						{
-							animationSpriteEx = (hangTimer >> 2) % 8
-							key = stringformat("sonic_hang_%d", animationSpriteEx)
-						}
-					}
-					else
-					{
-						animationSpriteEx = (level.framecounter >> 3) % 8
-						key = stringformat("sonic_hang_%d", animationSpriteEx)
-					}
-				}
-				
-				if (animationSprite == 0x8e)
-					bounce = 12
-				
-				if ((animationSprite == 0x8e) || (animationSprite >= 0x01 && animationSprite <= 0x30)) && (char.state != char.state.SONIC_DROPDASH)
-				{
-					if (bounce >= 12)
-					{
-						animationSpriteEx = (level.framecounter >> 3) % 2
-						key = stringformat((!super.active ? "sonic_springlaunch_%d" : "supersonic_springlaunch_%d"), animationSpriteEx)
-					}
-					else if (bounce > 0)
-					{
-						// Hand-timed the animation since it decided to not work properly otherwise
-						// Could probably rework the animation timer to count upwards to fix it, but not for now
-						if (bounce <= 12) && (bounce > 9)
-							key = "sonic_falltransition_0"
-						if (bounce <= 9) && (bounce > 6)
-							key = "sonic_falltransition_1"
-						if (bounce <= 6) && (bounce > 3)
-							key = "sonic_falltransition_2"
-						if (bounce <= 3) && (bounce > 0)
-							key = "sonic_falltransition_3"
-					}
-				}
-
-				if (animationSprite <= 0xa0) && (animationSprite > 0x9c)
-				{
-					skidTimer++
-					animationSpriteEx = (skidTimer >> 2) % 6
-					key = stringformat("sonic_halt_%d", animationSpriteEx)
-				}
-				else
-					skidTimer = 0
-				
-
-				if (char.state == char.state.STANDING)
-				{
-					idleTime++
-					if (idleTime >= 300) && (idleTime < 324)
-					{
-						animationSpriteEx = (idleTime >> 3) % 6
-						key = stringformat("sonic_idle_0_%d", animationSpriteEx)
-					}
-					if (idleTime >= 324) && (idleTime < 624)
-					{
-						animationSpriteEx = (idleTime >> 2) % 6
-						key = stringformat("sonic_idle_1_%d", animationSpriteEx)
-					}
-
-					// I suck at programming
-					if (idleTime >= 624) && (idleTime < 628)
-						key = "sonic_idle_2_0"
-					if (idleTime >= 628) && (idleTime < 632)
-						key = "sonic_idle_2_1"
-					if (idleTime >= 632) && (idleTime < 636)
-						key = "sonic_idle_2_2"
-					if (idleTime >= 636) && (idleTime < 640)
-						key = "sonic_idle_2_3"
-					if (idleTime >= 640) && (idleTime < 644)
-						key = "sonic_idle_2_4"
-					if (idleTime >= 644) && (idleTime < 664)
-						key = "sonic_idle_2_5"
-					if (idleTime >= 664) && (idleTime < 668)
-						key = "sonic_idle_2_6"
-					if (idleTime >= 668) && (idleTime < 672)
-						key = "sonic_idle_2_7"
-					if (idleTime >= 672) && (idleTime < 676)
-						key = "sonic_idle_2_8"
-					if (idleTime >= 676) && (idleTime < 706)
-						key = "sonic_idle_2_9"
-					if (idleTime >= 706) && (idleTime < 710)
-						key = "sonic_idle_2_10"
-					if (idleTime >= 710)
-						idleTime = 324 
-				}
-				else
-					idleTime = 0
-
-
-				if ((char.flags & char.flag.IN_AIR) == 0 && isInAir == true && char.spindash != 0x80)
-				{
-					if (abs(char.groundspeed) > 0x250 && (animationSprite >= 0x01 && animationSprite <= 0x30))
-					{
-						landTimer++
-						animationSpriteEx = (landTimer >> 2) % 5
-						maxLandFrame = 18
-
-						key = stringformat("sonic_land_%d", animationSpriteEx)
-					}
-
-					if (landTimer > maxLandFrame)
-						landTimer = 0
-					if (landTimer == 0)
-						isInAir = false
-				}
-				else
-					landTimer = 0
-
-				if (animationSprite >= 0x96 && animationSprite <= 0x9a)
-				{
-					animationSpriteEx = (level.framecounter >> 1) % 16
-					key = stringformat("sonic_roll_%d", animationSpriteEx)
-				}
-
-				if (animationSprite >= 0x86 && animationSprite <= 0x8b)
-				{
-					animationSpriteEx = (level.framecounter) % 20
-					key = stringformat("sonic_spindash_%d", animationSpriteEx)
-				}
-				/*
-				This is some (currently) unused code that may be used in a newer version if I can get it working
-				Also, why are you here? 
-				if (animationSprite >= 0x80 && animationSprite <= 0x85)
-				{
-					monkeyBarTimer++
-					animationSpriteEx = ((monkeyBarTimer - 2) >> 2) % 12
-					key = stringformat((!super.active ? "sonic_monkeybar_%d" : "supersonic_monkeybar_%d"), animationSpriteEx)
-				}
-				else
-					monkeyBarTimer = 0
-
-				Due to constant jittering, would need to reprogram the monkey bars to work
-				differently, and that's not on the cards right now
-
-				if (char.state == char.state.RUNNING && char.spindash == 0x80) //This means Sonic is charging a peelout
-					Log = 1
-
-				Until we make a sprite for charging the peelout!
-				*/
-			}
-			if (animationSprite >= 0x21 && animationSprite <= 0x30 && !isOnSpinningTop && !super.active)
-			{
-				if (sonic.fastrunanim.timer > 0)
-				{
-					animationSpriteEx = (peelOutStyle == 0 ? level.framecounter : (level.framecounter >> 1)) % 4
-					key = stringformat((peelOutStyle == 0 ? "sonic_peelout_%d" : "sonic_peelout_mania_%d"), animationSpriteEx)
-				
-					
-					if (!Game.getSetting(SETTING_SMOOTH_ROTATION))
-					{
-						angle = (animationSprite - 0x21) / 4 * 0xe0
-						if ((char.flags & char.flag.FACING_LEFT) == (global.inv_gravity == 0))
-							angle = -angle
-						animationSprite = 0x21 + (animationSprite - 0x21) % 4
-					}
-				}
-			}
-			if (char.state == char.state.TWIRLJUMP && !super.active)
-			{
-				animationSpriteEx = smoothAnimation == 0 ? (level.framecounter >> 3) % 5 : (level.framecounter >> 2) % 10
-				key = stringformat("sonic_twirl_%d", smoothAnimation == 0 ? animationSpriteEx * 2 : animationSpriteEx)
-			}
-
-			if (fallAnim != 0)
-			{
-				if (char.state == char.state.FALLING && !super.active) || ((animationSprite >= 0x01 && animationSprite <= 0x30) && (char.flags & char.flag.IN_AIR && char.state == char.state.RUNNING && !isOnSpinningTop && bounce == 0) && !super.active)
-				{
-					animationSpriteEx = (level.framecounter >> 2) % 9
-					key = stringformat("sonic_airwalk_%d", animationSpriteEx)
-					/*
-					if (key == stringformat("sonic_airwalk_%d", animationSpriteEx))
-					{
-						FallTimer++
-						Log = FallTimer
-					}
-					Sshhhhh
-					*/
-				}
-			}
-
-			if (char.state == char.state.SONIC_DROPDASH)
-			{
-				animationSpriteEx = (level.framecounter >> 1) % 8
-				key = stringformat("sonic_dropdash_%d", animationSpriteEx)
-			}
-
+			key = SonicAnim(animationSpriteEx, animationSprite, key)
+			angle = SonicRotation(animationSprite, angle)
 		}
 
 
@@ -671,4 +400,309 @@ function void Character.StateTrackUpdate()
 	if (char.flags & char.flag.IN_AIR)
 		isInAir = true
 
+}
+
+function u64 SonicAnim(u16 animationSpriteEx, u8 animationSprite, u64 key)
+{
+
+	if (!super.active && smoothAnimation != 0)
+	{
+		// Special handling for Drop Dash & Super Peel-Out
+		if (animationSprite >= 0x21 && animationSprite <= 0x30 && sonic.fastrunanim.timer == 0)
+		{
+
+			animationSpriteEx = (abs(char.groundspeed) > 0xa99 ? level.framecounter : (level.framecounter >> 1)) % 8
+			key = stringformat("sonic_run_%d", animationSpriteEx)
+
+		}
+		else if (animationSprite >= 0x01 && animationSprite <= 0x21 && sonic.fastrunanim.timer == 0)
+		{
+			animationSpriteEx = (level.framecounter >> 2) % 10
+			key = stringformat("sonic_walk_%d", animationSpriteEx)
+
+			if (abs(char.groundspeed) > 0x500)
+			{
+				runTimer++
+				animationSpriteEx = (runTimer >> 1) % 9
+				key = stringformat("sonic_jog_%d", animationSpriteEx)
+			}
+
+		}
+				
+	
+
+		if (char.state == char.state.LOOKING_UP)
+		{
+			if (lookUpTime < 21)
+				lookUpTime++
+		}
+		else if (lookUpTime > 0)
+				lookUpTime--
+					
+		if (char.state == char.state.LOOKING_UP || char.state == char.state.STANDING)
+		{
+			if (lookUpTime < 21) && (lookUpTime > 0)
+			{
+				animationSpriteEx = (lookUpTime >> 2) % 7
+				key = stringformat("sonic_look_up_%d", animationSpriteEx)
+			}
+		}
+
+		if (char.state == char.state.COWERING)
+		{
+			if (lookDownTime < 18)
+				lookDownTime++
+		}
+		else if (lookDownTime > 0)
+			lookDownTime--
+
+		if (char.state == char.state.COWERING || char.state == char.state.STANDING)
+		{
+					
+			if (lookDownTime < 18) && (lookDownTime > 0)
+			{
+				animationSpriteEx = (lookDownTime >> 2) % 6
+				key = stringformat("sonic_look_down_%d", animationSpriteEx)
+			}
+		}
+				
+				
+		if (animationSprite >= 0x90) && (animationSprite <= 0x92)
+		{
+			if (isOnMHZElevators)
+			{
+				if (hangTimer != 0)
+				{
+					animationSpriteEx = (hangTimer >> 2) % 8
+					key = stringformat("sonic_hang_%d", animationSpriteEx)
+				}
+			}
+			else
+			{
+				animationSpriteEx = (level.framecounter >> 3) % 8
+				key = stringformat("sonic_hang_%d", animationSpriteEx)
+			}
+		}
+				
+		if (animationSprite == 0x8e)
+					bounce = 12
+				
+		if ((animationSprite == 0x8e) || (animationSprite >= 0x01 && animationSprite <= 0x30)) && (char.state != char.state.SONIC_DROPDASH)
+		{
+			if (bounce >= 12)
+			{
+				animationSpriteEx = (level.framecounter >> 3) % 2
+				key = stringformat((!super.active ? "sonic_springlaunch_%d" : "supersonic_springlaunch_%d"), animationSpriteEx)
+			}
+		}
+	    else if (bounce > 0)
+		{
+			// Hand-timed the animation since it decided to not work properly otherwise
+			// Could probably rework the animation timer to count upwards to fix it, but not for now
+			if (bounce <= 12) && (bounce > 9)
+				key = "sonic_falltransition_0"
+			if (bounce <= 9) && (bounce > 6)
+				key = "sonic_falltransition_1"
+			if (bounce <= 6) && (bounce > 3)
+				key = "sonic_falltransition_2"
+			if (bounce <= 3) && (bounce > 0)
+				key = "sonic_falltransition_3"
+		}
+		
+				if (animationSprite <= 0xa0) && (animationSprite > 0x9c)
+				{
+					skidTimer++
+					animationSpriteEx = (skidTimer >> 2) % 6
+					key = stringformat("sonic_halt_%d", animationSpriteEx)
+				}
+				else
+					skidTimer = 0
+				
+
+				if (char.state == char.state.STANDING)
+				{
+					idleTime++
+					if (idleTime >= 300) && (idleTime < 324)
+					{
+						animationSpriteEx = (idleTime >> 3) % 6
+						key = stringformat("sonic_idle_0_%d", animationSpriteEx)
+					}
+					if (idleTime >= 324) && (idleTime < 624)
+					{
+						animationSpriteEx = (idleTime >> 2) % 6
+						key = stringformat("sonic_idle_1_%d", animationSpriteEx)
+					}
+
+					// I suck at programming
+					if (idleTime >= 624) && (idleTime < 628)
+						key = "sonic_idle_2_0"
+					if (idleTime >= 628) && (idleTime < 632)
+						key = "sonic_idle_2_1"
+					if (idleTime >= 632) && (idleTime < 636)
+						key = "sonic_idle_2_2"
+					if (idleTime >= 636) && (idleTime < 640)
+						key = "sonic_idle_2_3"
+					if (idleTime >= 640) && (idleTime < 644)
+						key = "sonic_idle_2_4"
+					if (idleTime >= 644) && (idleTime < 664)
+						key = "sonic_idle_2_5"
+					if (idleTime >= 664) && (idleTime < 668)
+						key = "sonic_idle_2_6"
+					if (idleTime >= 668) && (idleTime < 672)
+						key = "sonic_idle_2_7"
+					if (idleTime >= 672) && (idleTime < 676)
+						key = "sonic_idle_2_8"
+					if (idleTime >= 676) && (idleTime < 706)
+						key = "sonic_idle_2_9"
+					if (idleTime >= 706) && (idleTime < 710)
+						key = "sonic_idle_2_10"
+					if (idleTime >= 710)
+						idleTime = 324 
+				}
+				else
+					idleTime = 0
+
+				
+				if (animationSprite >= 0x96 && animationSprite <= 0x9a)
+				{
+					animationSpriteEx = (level.framecounter >> 1) % 16
+					key = stringformat("sonic_roll_%d", animationSpriteEx)
+				}
+
+				if (animationSprite >= 0x86 && animationSprite <= 0x8b)
+				{
+					animationSpriteEx = (level.framecounter) % 20
+					key = stringformat("sonic_spindash_%d", animationSpriteEx)
+				}
+	}
+
+
+				if ((char.flags & char.flag.IN_AIR) == 0 && isInAir && char.spindash != 0x80)
+				{
+					if (abs(char.groundspeed) > 0x250 && (animationSprite >= 0x01 && animationSprite <= 0x30))
+					{
+						landTimer++
+						animationSpriteEx = smoothAnimation ? (landTimer >> 2) % 5 : (landTimer >> 3) % 3
+						maxLandFrame = 18
+
+						key = stringformat("sonic_land_%d", smoothAnimation ? animationSpriteEx : animationSpriteEx * 2)
+					}
+
+					if (landTimer > maxLandFrame)
+						landTimer = 0
+					if (landTimer == 0)
+						isInAir = false
+				}
+				else
+					landTimer = 0
+
+				/*
+				This is some (currently) unused code that may be used in a newer version if I can get it working
+				Also, why are you here? 
+				if (animationSprite >= 0x80 && animationSprite <= 0x85)
+				{
+					monkeyBarTimer++
+					animationSpriteEx = ((monkeyBarTimer - 2) >> 2) % 12
+					key = stringformat((!super.active ? "sonic_monkeybar_%d" : "supersonic_monkeybar_%d"), animationSpriteEx)
+				}
+				else
+					monkeyBarTimer = 0
+
+				Due to constant jittering, would need to reprogram the monkey bars to work
+				differently, and that's not on the cards right now
+
+				if (char.state == char.state.RUNNING && char.spindash == 0x80) //This means Sonic is charging a peelout
+					Log = 1
+
+				Until we make a sprite for charging the peelout!
+				*/
+			
+			if (animationSprite >= 0x21 && animationSprite <= 0x30 && !isOnSpinningTop && !super.active)
+			{
+				if (sonic.fastrunanim.timer > 0)
+				{
+					animationSpriteEx = (peelOutStyle == 0 ? level.framecounter : (level.framecounter >> 1)) % 4
+					key = stringformat((peelOutStyle == 0 ? "sonic_peelout_%d" : "sonic_peelout_mania_%d"), animationSpriteEx)
+				}
+			}
+			if (char.state == char.state.TWIRLJUMP && !super.active)
+			{
+				animationSpriteEx = smoothAnimation == 0 ? (level.framecounter >> 3) % 5 : (level.framecounter >> 2) % 10
+				key = stringformat("sonic_twirl_%d", smoothAnimation == 0 ? animationSpriteEx * 2 : animationSpriteEx)
+			}
+
+			if (fallAnim != 0)
+			{
+				if (char.state == char.state.FALLING && !super.active) || ((animationSprite >= 0x01 && animationSprite <= 0x30) && (char.flags & char.flag.IN_AIR && char.state == char.state.RUNNING && !isOnSpinningTop && bounce == 0) && !super.active)
+				{
+					if (!smoothAnimation)
+					{
+						animationSpriteEx = (level.framecounter >> 2) % 9
+						key = stringformat("sonic_airwalk_%d", animationSpriteEx)
+					}
+					/*
+					if (key == stringformat("sonic_airwalk_%d", animationSpriteEx))
+					{
+						FallTimer++
+						Log = FallTimer
+					}
+					Sshhhhh
+					*/
+				}
+			}
+
+			if (char.state == char.state.SONIC_DROPDASH)
+			{
+				animationSpriteEx = (level.framecounter >> 1) % 8
+				key = stringformat("sonic_dropdash_%d", animationSpriteEx)
+			}
+
+	return key
+}
+
+function u8 SonicRotation(u16 animationSprite, u8 angle)
+{
+	if (!super.active && smoothAnimation != 0)
+	{
+		// Special handling for Drop Dash & Super Peel-Out
+		if (animationSprite >= 0x21 && animationSprite <= 0x30 && sonic.fastrunanim.timer == 0)
+		{
+
+			if (!Game.getSetting(SETTING_SMOOTH_ROTATION) && char.state != char.state.SONIC_DROPDASH)
+			{
+				angle = (animationSprite - 0x21) / 4 * 0xe0
+				if ((char.flags & char.flag.FACING_LEFT) == (global.inv_gravity == 0))
+					angle = -angle
+				animationSprite = 0x21 + (animationSprite - 0x21) % 4
+			}
+
+		}
+		else if (animationSprite >= 0x01 && animationSprite <= 0x21 && sonic.fastrunanim.timer == 0)
+		{
+
+			if (!Game.getSetting(SETTING_SMOOTH_ROTATION) && char.state != char.state.SONIC_DROPDASH)
+			{
+				angle = (animationSprite - 0x01) / 8 * 0xe0
+				if ((char.flags & char.flag.FACING_LEFT) == (global.inv_gravity == 0))
+						angle = -angle
+				animationSprite = 0x01 + (animationSprite - 0x01) % 8
+			}
+		}
+	}
+
+	if (animationSprite >= 0x21 && animationSprite <= 0x30 && !isOnSpinningTop && !super.active)
+	{
+		if (sonic.fastrunanim.timer > 0)
+		{	
+			if (!Game.getSetting(SETTING_SMOOTH_ROTATION))
+			{
+				angle = (animationSprite - 0x21) / 4 * 0xe0
+				if ((char.flags & char.flag.FACING_LEFT) == (global.inv_gravity == 0))
+					angle = -angle
+				animationSprite = 0x21 + (animationSprite - 0x21) % 4
+			}
+		}
+	}
+
+	return angle
 }
