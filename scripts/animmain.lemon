@@ -49,11 +49,8 @@ function bool Standalone.drawCharacterSprite(u8 character, u8 variant, s16 px, s
 	
 	if (variant < 2)
 	{
-		if (character == CHARACTER_SONIC)
-		{
-			key = SonicAnim(animationSpriteEx, animationSprite, key)
-			angle = SonicRotation(animationSprite, angle)
-		}
+		key = SonicAnim(animationSpriteEx, animationSprite, key)
+		angle = SonicRotation(animationSprite, angle)
 
 
 		if (Game.getSetting(SETTING_SMOOTH_ROTATION))
@@ -293,6 +290,10 @@ function bool Standalone.drawCharacterSprite(u8 character, u8 variant, s16 px, s
 function u64 SonicAnim(u16 animationSpriteEx, u8 animationSprite, u64 key)
 {
 	Log = isInAir
+
+	if (char.character != CHARACTER_SONIC)
+		return key
+
 	if ((char.flags & char.flag.IN_AIR) == 0 && isInAir && char.spindash != 0x80 && char.state != char.state.BRAKING)
 	{
 		if (abs(char.groundspeed) > 0x250 && (animationSprite >= 0x01 && animationSprite <= 0x30))
@@ -311,6 +312,8 @@ function u64 SonicAnim(u16 animationSpriteEx, u8 animationSprite, u64 key)
 	}
 	else
 		landTimer = 0
+	
+
 
 	/*
 	This is some (currently) unused code that may be used in a newer version if I can get it working
@@ -550,6 +553,9 @@ function u64 SonicAnim(u16 animationSpriteEx, u8 animationSprite, u64 key)
 
 function u8 SonicRotation(u16 animationSprite, u8 angle)
 {
+	if (char.character != CHARACTER_SONIC)
+		return angle
+
 	if (animationSprite >= 0x21 && animationSprite <= 0x30 && (sonic.fastrunanim.timer != 0 || smoothAnimation != 0) )
 	{
 		if (!Game.getSetting(SETTING_SMOOTH_ROTATION) && char.state != char.state.SONIC_DROPDASH)

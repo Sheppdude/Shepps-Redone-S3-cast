@@ -36,8 +36,12 @@ global u64 FallTimer = 0 // How long you have been in air
 function void SpringVertical.ApplyToCharacter()
 {
 	base.SpringVertical.ApplyToCharacter()
-	if (objA0.subtype2c & 0x01) && (twirlOn == 1)
-		objA1.state = char.state.TWIRLJUMP
+
+	if (isMainCharacter(CHARACTER_SONIC)) // Will be kept until other characters are implemented
+	{
+		if (objA0.subtype2c & 0x01) && (twirlOn == 1)
+			objA1.state = char.state.TWIRLJUMP
+	}
 }
 
 //MGZ Spinning Tops
@@ -46,7 +50,9 @@ function void SpringVertical.ApplyToCharacter()
 function void fn034c54()
 {
 	base.fn034c54()
-	isOnSpinningTop = true
+
+	if (isMainCharacter(CHARACTER_SONIC))
+		isOnSpinningTop = true
 }
 
 // MHZ elevators
@@ -55,15 +61,19 @@ function void fn034c54()
 function void fn03e658()
 {
 	base.fn03e658()
-	isOnMHZElevators = true
-	
-	if (objA1.animation.sprite == 0x92 || objA1.animation.sprite == 0x91)
+
+	if (isMainCharacter(CHARACTER_SONIC))
 	{
-		if (hangTimer < 17)
-			hangTimer++
+		isOnMHZElevators = true
+		
+		if (objA1.animation.sprite == 0x92 || objA1.animation.sprite == 0x91)
+		{
+			if (hangTimer < 17)
+				hangTimer++
+		}
+		else if (hangTimer > 0)
+			hangTimer--
 	}
-	else if (hangTimer > 0)
-		hangTimer--
 }
 
 // CNZ Balloons
@@ -73,8 +83,11 @@ function void fn0317ae()
 {
 	base.fn0317ae()
 
-	if (objA1.state != char.state.ROLLING)
-		objA1.state = char.state.STRAIGHTJUMP
+	if (isMainCharacter(CHARACTER_SONIC))
+	{
+		if (objA1.state != char.state.ROLLING)
+			objA1.state = char.state.STRAIGHTJUMP
+	}
 
 }
 
@@ -89,6 +102,13 @@ function void Character.StateTrackUpdate()
 {
 	if (char.flags & char.flag.IN_AIR)
 		isInAir = true // ONLY FOR THE SUMMERSAULT LANDING ANIMATION
+
+	if (char.spindash == 0x80) // Cannot be true if you are not running normally
+		isInAir = false
+
+	// The isInAir variable is only to be set to false when 
+	// it is absolutely necessary, from here on out it'll be handled
+	// in the animation code
 
 	if (char.velocity.y > 0 && isInAir && char.state == char.state.TWIRLJUMP)
 	{
