@@ -295,7 +295,7 @@ function u64 SonicAnim(u16 animationSpriteEx, u8 animationSprite, u64 key)
 
 	if ((char.flags & char.flag.IN_AIR) == 0 && isInAir && char.spindash != 0x80)
 	{
-		if (abs(char.groundspeed) > 0x250 && (animationSprite >= 0x01 && animationSprite <= 0x30))
+		if (abs(char.groundspeed) > 0x250 && char.state == char.state.RUNNING)
 		{
 			landTimer++
 			animationSpriteEx = smoothAnimation ? (landTimer >> 2) % 5 : (landTimer >> 3) % 3
@@ -306,7 +306,7 @@ function u64 SonicAnim(u16 animationSpriteEx, u8 animationSprite, u64 key)
 
 		if (landTimer > maxLandFrame)
 			landTimer = 0
-		if (landTimer == 0)
+		if (landTimer == 0 || char.state.BRAKING)
 			isInAir = false
 	}
 	else
@@ -534,9 +534,9 @@ function u64 SonicAnim(u16 animationSpriteEx, u8 animationSprite, u64 key)
 					key = "sonic_idle_2_8"
 				if (idleTime >= 676) && (idleTime < 706)
 					key = "sonic_idle_2_9"
-				if (idleTime >= 706) && (idleTime < 710)
+				if (idleTime >= 706) && (idleTime < 707)
 					key = "sonic_idle_2_10"
-				if (idleTime >= 710)
+				if (idleTime >= 707)
 					idleTime = 324 
 			}
 			else
