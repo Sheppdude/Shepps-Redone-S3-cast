@@ -292,10 +292,10 @@ function bool Standalone.drawCharacterSprite(u8 character, u8 variant, s16 px, s
 
 function u64 SonicAnim(u16 animationSpriteEx, u8 animationSprite, u64 key)
 {
-
-	if ((char.flags & char.flag.IN_AIR) == 0 && isInAir && char.spindash != 0x80)
+	Log = isInAir
+	if ((char.flags & char.flag.IN_AIR) == 0 && isInAir && char.spindash != 0x80 && char.state != char.state.BRAKING)
 	{
-		if (abs(char.groundspeed) > 0x250 && char.state == char.state.RUNNING)
+		if (abs(char.groundspeed) > 0x250 && (animationSprite >= 0x01 && animationSprite <= 0x30))
 		{
 			landTimer++
 			animationSpriteEx = smoothAnimation ? (landTimer >> 2) % 5 : (landTimer >> 3) % 3
@@ -306,7 +306,7 @@ function u64 SonicAnim(u16 animationSpriteEx, u8 animationSprite, u64 key)
 
 		if (landTimer > maxLandFrame)
 			landTimer = 0
-		if (landTimer == 0 || char.state.BRAKING)
+		if (landTimer == 0)
 			isInAir = false
 	}
 	else
