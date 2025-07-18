@@ -4,7 +4,7 @@ include balancing
 include animmain
 
 // States / Object detection (required due to many object interactions using the running state)
-constant u8 char.state.TWIRLJUMP = 0x12
+constant u8 char.state.TWIRLJUMP = 0x12 // These two states are to avoid rendering flags normally placed on the running state
 constant u8 char.state.FALLING = 0x30
 global bool isOnSpinningTop = false
 global bool isOnMHZElevators = false
@@ -102,9 +102,12 @@ function void Character.StateTrackUpdate()
 {
 	if (char.flags & char.flag.IN_AIR)
 		isInAir = true // ONLY FOR THE SUMMERSAULT LANDING ANIMATION
+	else
+	{
+		if (char.spindash == 0x80 || char.state != char.state.RUNNING) // Cannot be true if you are not running normally
+			isInAir = false
+	}
 
-	if (char.spindash == 0x80) // Cannot be true if you are not running normally
-		isInAir = false
 
 	// The isInAir variable is only to be set to false when 
 	// it is absolutely necessary, from here on out it'll be handled

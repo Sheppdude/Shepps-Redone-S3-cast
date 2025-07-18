@@ -49,7 +49,7 @@ function bool Standalone.drawCharacterSprite(u8 character, u8 variant, s16 px, s
 	
 	if (variant < 2)
 	{
-		key = SonicAnim(animationSpriteEx, animationSprite, key)
+		key = SonicAnim(animationSprite)
 		angle = SonicRotation(animationSprite, angle)
 
 
@@ -287,12 +287,16 @@ function bool Standalone.drawCharacterSprite(u8 character, u8 variant, s16 px, s
 
 
 
-function u64 SonicAnim(u16 animationSpriteEx, u8 animationSprite, u64 key)
+function u64 SonicAnim(u8 animationSprite)
 {
-	Log = isInAir
+	u16 animationSpriteEx
+	u64 key
 
 	if (char.character != CHARACTER_SONIC)
 		return key
+
+	Log = isInAir
+
 
 	if ((char.flags & char.flag.IN_AIR) == 0 && isInAir && char.spindash != 0x80 && char.state != char.state.BRAKING)
 	{
