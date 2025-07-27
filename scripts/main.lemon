@@ -17,17 +17,17 @@ global u8 smoothAnimation = 1 // Turn off the smooth animation (on by default)
 global u8 fallAnim = 1
 
 // Timers for animations
-global u64 idleTime = 0
+global s64 idleTime = 0
 global s32 lookUpTime = 0
 global s32 lookDownTime = 0
 global s32 hangTimer = 0
 global s32 bounce = 0 // Correct advertising
-global u8 peelTimer = 0
-global u8 skidTimer = 0
-global u8 runTimer = 0
-global u8 landTimer = 0
-global u8 maxLandFrame = 20 // When the animation should end
-global u64 FallTimer = 0 // How long you have been in air
+global s8 peelTimer = 0
+global s8 skidTimer = 0
+global s8 runTimer = 0
+global s8 landTimer = 0
+global s8 maxLandFrame = 20 // When the animation should end
+global s64 FallTimer = 0 // How long you have been in air
 // global u8 monkeyBarTimer = 0 (Too lazy to properly implement)
 
 // Springs
