@@ -295,6 +295,8 @@ function u64 SonicAnim(u8 animationSprite)
 	if (char.character != CHARACTER_SONIC)
 		return key
 
+	if (smoothAnimation == 1 && !super.active)
+		key = SmoothSonicAnim(animationSprite)
 
 
 	if ((char.flags & char.flag.IN_AIR) == 0 && isInAir && char.spindash != 0x80 && char.state != char.state.BRAKING)
@@ -302,10 +304,12 @@ function u64 SonicAnim(u8 animationSprite)
 		if (abs(char.groundspeed) > 0x250 && (animationSprite >= 0x01 && animationSprite <= 0x30))
 		{
 			landTimer++
-			animationSpriteEx = smoothAnimation ? (landTimer >> 2) % 5 : (landTimer >> 3) % 3
 	    	maxLandFrame = 18
 
-			key = stringformat("sonic_land_%d", smoothAnimation ? animationSpriteEx : animationSpriteEx + 1)
+			//Have custom code here that does something slightly differently
+			//animationSpriteEx = smoothAnimation ? (landTimer >> 2) % 5 : (landTimer >> 3) % 3
+			//key = stringformat("sonic_land_%d", smoothAnimation ? animationSpriteEx : animationSpriteEx + 1)
+			key = SetSpriteKey(landTimer, (smoothAnimation ? 2 : 3), (smoothAnimation ? 5 : 3), "sonic_land_%d")
 		}
 
 		if (landTimer > maxLandFrame)
@@ -315,7 +319,7 @@ function u64 SonicAnim(u8 animationSprite)
 	}
 	else
 		landTimer = 0
-	
+
 
 
 	/*
@@ -341,10 +345,9 @@ function u64 SonicAnim(u8 animationSprite)
 
 	if (fallAnim != 0)
 	{
-		if (char.state == char.state.FALLING && !super.active) || ((animationSprite >= 0x01 && animationSprite <= 0x30) && ((char.flags & char.flag.IN_AIR && char.state == char.state.RUNNING) && (!isOnSpinningTop && bounce == 0)) && !super.active)
+		if (char.state == char.state.FALLING && !super.active) || ((animationSprite >= 0x01 && animationSprite <= 0x30) && ((char.flags & char.flag.IN_AIR && char.state == char.state.RUNNING) && (ObjectInteraction.isInteracting == ObjectInteraction.None && bounce == 0)) && !super.active)
 		{
-			animationSpriteEx = smoothAnimation == 1 ? (level.framecounter >> 2) % 9 : (level.framecounter >> 3) % 8
-			key = stringformat("sonic_airwalk_%d", animationSpriteEx)
+			key = SetSpriteKey(level.framecounter, (smoothAnimation ? 2 : 3), (smoothAnimation ? 9 : 8), "sonic_airwalk_%d")
 			/*
 			if (key == stringformat("sonic_airwalk_%d", animationSpriteEx))
 			{
@@ -358,10 +361,7 @@ function u64 SonicAnim(u8 animationSprite)
 	}
 
 	if (char.state == char.state.SONIC_DROPDASH)
-	{
-		animationSpriteEx = (level.framecounter >> 1) % 8
-		key = stringformat("sonic_dropdash_%d", animationSpriteEx)
-	}
+		key = SetSpriteKey(level.framecounter, 1, 8, "sonic_dropdash_%d")
 
 	if (!super.active)
 	{
@@ -373,192 +373,237 @@ function u64 SonicAnim(u8 animationSprite)
 
 		if (animationSprite >= 0x21 && animationSprite <= 0x30 && char.state != char.state.SONIC_DROPDASH && !isInAir)
 		{
-			if (sonic.fastrunanim.timer > 0 && !isOnSpinningTop)
+			if (sonic.fastrunanim.timer > 0 && ObjectInteraction.isInteracting == ObjectInteraction.None)
 			{
 				animationSpriteEx = (peelOutStyle == 0 ? level.framecounter : (level.framecounter >> 1)) % 4
 				key = stringformat((peelOutStyle == 0 ? "sonic_peelout_%d" : "sonic_peelout_mania_%d"), animationSpriteEx)
 			}
-
-			if (smoothAnimation == 1 && sonic.fastrunanim.timer == 0)
-			{
-				animationSpriteEx = (abs(char.groundspeed) > 0xa99 ? level.framecounter : (level.framecounter >> 1)) % 8
-				key = stringformat("sonic_run_%d", animationSpriteEx)
-			}
 		}
-
-
-		if (smoothAnimation == 0) 
-			return key
-
-
-        if (animationSprite >= 0x96 && animationSprite <= 0x9a)
-	    {
-	        animationSpriteEx = (level.framecounter >> 1) % 16
-	        key = stringformat("sonic_roll_%d", animationSpriteEx)
-	    }
-
-	    if (animationSprite >= 0x86 && animationSprite <= 0x8b)
-	    {
-		    animationSpriteEx = (level.framecounter) % 20
-		    key = stringformat("sonic_spindash_%d", animationSpriteEx)
-	    }
-
-		if (animationSprite >= 0x01 && animationSprite < 0x21 && sonic.fastrunanim.timer == 0 && char.state != char.state.SONIC_DROPDASH && !isInAir)
-		{
-			animationSpriteEx = (level.framecounter >> 2) % 10
-			key = stringformat("sonic_walk_%d", animationSpriteEx)
-
-			if (abs(char.groundspeed) > 0x500)
-			{
-				runTimer++
-				animationSpriteEx = (runTimer >> 1) % 9
-				key = stringformat("sonic_jog_%d", animationSpriteEx)
-			}
-
-		}
-					
-		
-
-		if (char.state == char.state.LOOKING_UP)
-		{
-			if (lookUpTime < 21)
-				lookUpTime++
-			
-			lookDownTime = 0
-		}
-		else if (lookUpTime > 0)
-				lookUpTime--
-					
-		if (char.state == char.state.LOOKING_UP || char.state == char.state.STANDING)
-		{
-			if (lookUpTime < 21) && (lookUpTime > 0)
-			{
-				animationSpriteEx = (lookUpTime >> 2) % 7
-				key = stringformat("sonic_look_up_%d", animationSpriteEx)
-			}
-		}
-
-		if (char.state == char.state.COWERING)
-		{
-			if (lookDownTime < 18)
-				lookDownTime++
-			
-			lookUpTime = 0
-		}
-		else if (lookDownTime > 0)
-			lookDownTime--
-
-		if (char.state == char.state.COWERING || char.state == char.state.STANDING)
-		{
-					
-			if (lookDownTime < 18) && (lookDownTime > 0)
-			{
-				animationSpriteEx = (lookDownTime >> 2) % 6
-				key = stringformat("sonic_look_down_%d", animationSpriteEx)
-			}
-		}
-					
-					
-		if (animationSprite >= 0x90) && (animationSprite <= 0x92)
-		{
-			if (isOnMHZElevators)
-			{
-				if (hangTimer != 0)
-				{
-					animationSpriteEx = (hangTimer >> 2) % 8
-					key = stringformat("sonic_hang_%d", animationSpriteEx)
-				}
-			}
-			else
-			{
-				animationSpriteEx = (level.framecounter >> 3) % 8
-				key = stringformat("sonic_hang_%d", animationSpriteEx)
-			}
-		}
-					
-		if (animationSprite == 0x8e)
-					bounce = 12
-				
-		if ((animationSprite == 0x8e) || (animationSprite >= 0x01 && animationSprite <= 0x30)) && (char.state != char.state.SONIC_DROPDASH)
-		{
-			if (bounce >= 12)
-			{
-				animationSpriteEx = (level.framecounter >> 3) % 2
-				key = stringformat((!super.active ? "sonic_springlaunch_%d" : "supersonic_springlaunch_%d"), animationSpriteEx)
-			}
-		}
-		else if (bounce > 0)
-		{
-			// Hand-timed the animation since it decided to not work properly otherwise
-			// Could probably rework the animation timer to count upwards to fix it, but not for now
-			if (bounce <= 12) && (bounce > 9)
-				key = "sonic_falltransition_0"
-			if (bounce <= 9) && (bounce > 6)
-				key = "sonic_falltransition_1"
-			if (bounce <= 6) && (bounce > 3)
-				key = "sonic_falltransition_2"
-			if (bounce <= 3) && (bounce > 0)
-				key = "sonic_falltransition_3"
-		}
-			
-		if (animationSprite <= 0xa0) && (animationSprite > 0x9c)
-		{
-			skidTimer++
-			animationSpriteEx = (skidTimer >> 2) % 6
-			key = stringformat("sonic_halt_%d", animationSpriteEx)
-		}
-		else
-			skidTimer = 0
-				
-
-		if (char.state == char.state.STANDING)
-		{
-			idleTime++
-			if (idleTime >= 300) && (idleTime < 324)
-			{
-				animationSpriteEx = (idleTime >> 3) % 6
-				key = stringformat("sonic_idle_0_%d", animationSpriteEx)
-			}
-			if (idleTime >= 324) && (idleTime < 624)
-			{
-				animationSpriteEx = (idleTime >> 2) % 6
-				key = stringformat("sonic_idle_1_%d", animationSpriteEx)
-			}
-
-			// I suck at programming
-			if (idleTime >= 624) && (idleTime < 628)
-				key = "sonic_idle_2_0"
-			if (idleTime >= 628) && (idleTime < 632)
-				key = "sonic_idle_2_1"
-			if (idleTime >= 632) && (idleTime < 636)
-				key = "sonic_idle_2_2"
-			if (idleTime >= 636) && (idleTime < 640)
-				key = "sonic_idle_2_3"
-			if (idleTime >= 640) && (idleTime < 644)
-				key = "sonic_idle_2_4"
-			if (idleTime >= 644) && (idleTime < 664)
-				key = "sonic_idle_2_5"
-			if (idleTime >= 664) && (idleTime < 668)
-				key = "sonic_idle_2_6"
-			if (idleTime >= 668) && (idleTime < 672)
-				key = "sonic_idle_2_7"
-			if (idleTime >= 672) && (idleTime < 676)
-				key = "sonic_idle_2_8"
-			if (idleTime >= 676) && (idleTime < 706)
-				key = "sonic_idle_2_9"
-			if (idleTime >= 706) && (idleTime < 707)
-				key = "sonic_idle_2_10"
-			if (idleTime >= 707)
-				idleTime = 324 
-		}
-		else
-		idleTime = 0
 		
 	}
 	return key
 }
 
+function u64 SmoothSonicAnim (u8 animationSprite)
+{
+	u64 key
+	u16 animationSpriteEx
 
+	u64 framecounter = level.framecounter // Is the default framecounter unless specified otherwise, to avoid programming other stuff later
+	u64 animName // Name of the sprite string, has to be formatted to include the frame number
+	u8 framelength // How long an animation frame should last
+	u8 animlength // Length of the animation, measured in frames
+
+	if (char.state == char.state.RUNNING)
+		Log = 1 // Dummy output
+
+	if (animationSprite >= 0x21 && animationSprite <= 0x30 && sonic.fastrunanim.timer == 0 && char.state != char.state.SONIC_DROPDASH && !isInAir)
+	{
+		animlength = 8
+		animName = "sonic_run_%d"
+		framelength = (abs(char.groundspeed) > 0xa99 ? 0 : 1) // If he is going fast enough, the framelength is sped up
+	}
+
+	if (animationSprite >= 0x01 && animationSprite < 0x21 && sonic.fastrunanim.timer == 0 && char.state != char.state.SONIC_DROPDASH && !isInAir)
+	{
+		animlength = 10
+		animName = "sonic_walk_%d"
+		framelength = 2
+
+		if (abs(char.groundspeed) > 0x500)
+		{
+			animlength = 9
+			animName = "sonic_jog_%d"
+			framelength = 1
+		}
+	}
+
+    if (animationSprite >= 0x96 && animationSprite <= 0x9a)
+	{
+		animlength = 16
+		animName = "sonic_roll_%d"
+		framelength = 1
+	}
+
+    if (animationSprite >= 0x86 && animationSprite <= 0x8b)
+	{
+		animlength = 20
+		animName = "sonic_spindash_%d"
+		framelength = 0
+	}
+
+	if (char.state == char.state.LOOKING_UP)
+	{
+		if (lookUpTime < 21)
+			lookUpTime++
+	
+		lookDownTime = 0
+	}
+	else if (lookUpTime > 0)
+		lookUpTime--
+		
+	if (char.state == char.state.LOOKING_UP || char.state == char.state.STANDING)
+	{
+		if (lookUpTime < 21) && (lookUpTime > 0)
+		{
+			framecounter = lookUpTime
+			animlength = 7
+			animName = "sonic_look_up_%d"
+			framelength = 2
+		}
+	}
+
+	//Log = lookUpTime
+
+	if (char.state == char.state.COWERING)
+	{
+		if (lookDownTime < 18)
+			lookDownTime++
+		
+		lookUpTime = 0
+	}
+	else if (lookDownTime > 0)
+		lookDownTime--
+
+	//Log = lookDownTime
+
+	if (char.state == char.state.COWERING || char.state == char.state.STANDING)
+	{
+		if (lookDownTime < 18) && (lookDownTime > 0)
+		{
+			framecounter = lookDownTime
+			animlength = 6
+			animName = "sonic_look_down_%d"
+			framelength = 2
+		}
+	}
+
+
+	if (animationSprite >= 0x90) && (animationSprite <= 0x92)
+	{
+		bool isOnMHZElevator = ObjectInteraction.isInteracting == ObjectInteraction.MHZElevator
+
+		if (isOnMHZElevator)
+		{
+			if (animationSprite == 0x92 ||  animationSprite == 0x91)
+			{
+				if (hangTimer < 17)
+					hangTimer++
+			}
+			else if (hangTimer > 0)
+				hangTimer--
+		}
+
+		framecounter = (!isOnMHZElevator ? level.framecounter : hangTimer)
+		animlength = 8
+		animName = "sonic_hang_%d"
+		framelength = (!isOnMHZElevator ? 3 : 2)
+	}
+
+	if (bounce > 0)
+		bounce--
+
+	if (animationSprite == 0x8e)
+		bounce = 13
+			
+	if ((animationSprite == 0x8e) || (animationSprite >= 0x01 && animationSprite <= 0x30)) && (char.state != char.state.SONIC_DROPDASH)
+	{
+		if (bounce >= 13)
+		{
+			animlength = 2
+			animName = "sonic_springlaunch_%d"
+			framelength = 3
+		}
+	}
+
+	if (bounce > 0) && (bounce <= 12)
+	{
+		// Hand-timed the animation since it decided to not work properly otherwise
+		// Could probably rework the animation timer to count upwards to fix it, but not for now
+
+		if (bounce <= 12) && (bounce > 9)
+			key = "sonic_falltransition_0"
+		if (bounce <= 9) && (bounce > 6)
+			key = "sonic_falltransition_1"
+		if (bounce <= 6) && (bounce > 3)
+			key = "sonic_falltransition_2"
+		if (bounce <= 3) && (bounce > 0)
+			key = "sonic_falltransition_3"
+	}
+
+	if (animationSprite <= 0xa0) && (animationSprite > 0x9c)
+	{
+		skidTimer++
+		framecounter = skidTimer
+		animlength = 6
+		animName = "sonic_halt_%d"
+		framelength = 2
+	}
+	else
+		skidTimer = 0
+
+
+	if (char.state == char.state.STANDING)
+	{
+		idleTime++
+		if (idleTime >= 300) && (idleTime < 324)
+		{
+			framecounter = idleTime
+			animlength = 6
+			animName = "sonic_idle_0_%d"
+			framelength = 3
+		}
+
+		if (idleTime >= 324) && (idleTime < 624)
+		{
+			framecounter = idleTime
+			animlength = 6
+			animName = "sonic_idle_1_%d"
+			framelength = 2
+		}
+
+		// I suck at programming
+		if (idleTime >= 624) && (idleTime < 628)
+			key = "sonic_idle_2_0"
+		if (idleTime >= 628) && (idleTime < 632)
+			key = "sonic_idle_2_1"
+		if (idleTime >= 632) && (idleTime < 636)
+			key = "sonic_idle_2_2"
+		if (idleTime >= 636) && (idleTime < 640)
+			key = "sonic_idle_2_3"
+		if (idleTime >= 640) && (idleTime < 644)
+			key = "sonic_idle_2_4"
+		if (idleTime >= 644) && (idleTime < 664)
+			key = "sonic_idle_2_5"
+		if (idleTime >= 664) && (idleTime < 668)
+			key = "sonic_idle_2_6"
+		if (idleTime >= 668) && (idleTime < 672)
+			key = "sonic_idle_2_7"
+		if (idleTime >= 672) && (idleTime < 676)
+			key = "sonic_idle_2_8"
+		if (idleTime >= 676) && (idleTime < 706)
+			key = "sonic_idle_2_9"
+		if (idleTime >= 706) && (idleTime < 707)
+			key = "sonic_idle_2_10"
+		if (idleTime >= 707)
+			idleTime = 324 
+	}
+	else
+		idleTime = 0
+
+	if !((idleTime >= 624) && (idleTime < 707)) && !((bounce > 0) && (bounce <= 12)) // Don't do it here because I directly set the sprite key in these conditions
+		key = SetSpriteKey(framecounter, framelength, animlength, animName)
+
+	return key
+}
+
+function u64 SetSpriteKey(u64 framecounter, u8 framelength, u8 animlength, u64 animName)
+{
+	u16 animationSpriteEx = (framecounter >> framelength) % animlength
+	u64 key = stringformat(animName, animationSpriteEx)
+
+	return key
+}
 
 function u8 SonicRotation(u8 animationSprite, u8 angle)
 {

@@ -6,8 +6,12 @@ include animmain
 // States / Object detection (required due to many object interactions using the running state)
 constant u8 char.state.TWIRLJUMP = 0x12 // These two states are to avoid rendering flags normally placed on the running state
 constant u8 char.state.FALLING = 0x30
-global bool isOnSpinningTop = false
-global bool isOnMHZElevators = false
+
+constant u8 ObjectInteraction.None = 0
+constant u8 ObjectInteraction.MGZSpinningTop = 1
+constant u8 ObjectInteraction.MHZElevator = 2
+
+global u8 ObjectInteraction.isInteracting
 global bool isInAir = false //air
 
 // Mod Options
@@ -52,7 +56,7 @@ function void fn034c54()
 	base.fn034c54()
 
 	if (isMainCharacter(CHARACTER_SONIC))
-		isOnSpinningTop = true
+		ObjectInteraction.isInteracting = ObjectInteraction.MGZSpinningTop
 }
 
 // MHZ elevators
@@ -63,17 +67,7 @@ function void fn03e658()
 	base.fn03e658()
 
 	if (isMainCharacter(CHARACTER_SONIC))
-	{
-		isOnMHZElevators = true
-		
-		if (objA1.animation.sprite == 0x92 || objA1.animation.sprite == 0x91)
-		{
-			if (hangTimer < 17)
-				hangTimer++
-		}
-		else if (hangTimer > 0)
-			hangTimer--
-	}
+		ObjectInteraction.isInteracting = ObjectInteraction.MHZElevator
 }
 
 // CNZ Balloons
@@ -100,7 +94,7 @@ function void Character.UpdateNormalState.Sonic()
 
 function void Character.StateTrackUpdate()
 {
-	if (char.flags & char.flag.IN_AIR)
+	if (char.flags & char.flag.IN_AIR && ObjectInteraction.isInteracting == ObjectInteraction.None)
 		isInAir = true // ONLY FOR THE SUMMERSAULT LANDING ANIMATION
 	else
 	{
@@ -121,20 +115,13 @@ function void Character.StateTrackUpdate()
 			char.state = char.state.RUNNING
 	}
 	
-	if ((char.flags & char.flag.IN_AIR == 0) || char.state != char.state.RUNNING)
-		isOnSpinningTop = false
-	
-	if (char.state != char.state.HANGING)
-		isOnMHZElevators = false
+	if ((char.flags & char.flag.IN_AIR == 0) || char.state != char.state.RUNNING || char.state != char.state.HANGING)
+		ObjectInteraction.isInteracting = ObjectInteraction.None
 
 	if ((char.flags & char.flag.IN_AIR == 0) && char.state == char.state.FALLING)
 		char.state = char.state.RUNNING
 
-	if (bounce > 0)
-		bounce--
-
 	if ((char.flags & char.flag.IN_AIR == 0) || char.state == char.state.ROLLING)
 		bounce = 0
 	
-
 }
