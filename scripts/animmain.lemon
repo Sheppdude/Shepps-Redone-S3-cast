@@ -345,7 +345,7 @@ function u64 SonicAnim(u8 animationSprite)
 
 	if (fallAnim != 0)
 	{
-		if (char.state == char.state.FALLING && !super.active) || ((animationSprite >= 0x01 && animationSprite <= 0x30) && ((char.flags & char.flag.IN_AIR && char.state == char.state.RUNNING) && (ObjectInteraction.isInteracting == ObjectInteraction.None && bounce == 0)) && !super.active)
+		if (char.state == char.state.FALLING && !super.active) || ((animationSprite >= 0x01 && animationSprite <= 0x30) && ((char.flags & char.flag.IN_AIR && char.state == char.state.RUNNING) && (ObjectInteraction.isInteracting == 0 && bounce == 0)) && !super.active)
 		{
 			key = SetSpriteKey(level.framecounter, (smoothAnimation ? 2 : 3), (smoothAnimation ? 9 : 8), "sonic_airwalk_%d")
 			/*
@@ -373,7 +373,7 @@ function u64 SonicAnim(u8 animationSprite)
 
 		if (animationSprite >= 0x21 && animationSprite <= 0x30 && char.state != char.state.SONIC_DROPDASH && !isInAir)
 		{
-			if (sonic.fastrunanim.timer > 0 && ObjectInteraction.isInteracting == ObjectInteraction.None)
+			if (sonic.fastrunanim.timer > 0 && ObjectInteraction.isInteracting == 0)
 			{
 				animationSpriteEx = (peelOutStyle == 0 ? level.framecounter : (level.framecounter >> 1)) % 4
 				key = stringformat((peelOutStyle == 0 ? "sonic_peelout_%d" : "sonic_peelout_mania_%d"), animationSpriteEx)

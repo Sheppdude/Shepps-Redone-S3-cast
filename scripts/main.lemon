@@ -7,7 +7,7 @@ include animmain
 constant u8 char.state.TWIRLJUMP = 0x12 // These two states are to avoid rendering flags normally placed on the running state
 constant u8 char.state.FALLING = 0x30
 
-constant u8 ObjectInteraction.None = 0
+constant u8 ObjectInteraction.None = 0 // Going to use 0 in place of it, this is just for documentation, since 0 already represents a 'null' value
 constant u8 ObjectInteraction.MGZSpinningTop = 1
 constant u8 ObjectInteraction.MHZElevator = 2
 
@@ -94,7 +94,7 @@ function void Character.UpdateNormalState.Sonic()
 
 function void Character.StateTrackUpdate()
 {
-	if (char.flags & char.flag.IN_AIR && ObjectInteraction.isInteracting == ObjectInteraction.None)
+	if (char.flags & char.flag.IN_AIR && ObjectInteraction.isInteracting == 0)
 		isInAir = true // ONLY FOR THE SUMMERSAULT LANDING ANIMATION
 	else
 	{
@@ -116,7 +116,7 @@ function void Character.StateTrackUpdate()
 	}
 	
 	if ((char.flags & char.flag.IN_AIR == 0) || char.state != char.state.RUNNING || char.state != char.state.HANGING)
-		ObjectInteraction.isInteracting = ObjectInteraction.None
+		ObjectInteraction.isInteracting = 0
 
 	if ((char.flags & char.flag.IN_AIR == 0) && char.state == char.state.FALLING)
 		char.state = char.state.RUNNING
