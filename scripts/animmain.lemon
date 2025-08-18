@@ -306,10 +306,8 @@ function u64 SonicAnim(u8 animationSprite)
 			landTimer++
 	    	maxLandFrame = 18
 
-			//Have custom code here that does something slightly differently
-			//animationSpriteEx = smoothAnimation ? (landTimer >> 2) % 5 : (landTimer >> 3) % 3
-			//key = stringformat("sonic_land_%d", smoothAnimation ? animationSpriteEx : animationSpriteEx + 1)
-			key = SetSpriteKey(landTimer, (smoothAnimation ? 2 : 3), (smoothAnimation ? 5 : 3), "sonic_land_%d")
+			u8 animSpriteMod = 1 // Modifies animationSpriteEx by adding a u8 value at the end of it, useful for displaying certain frames
+			key = SetSpriteKey(landTimer, (smoothAnimation ? 2 : 3), (smoothAnimation ? 5 : 3), "sonic_land_%d", animSpriteMod)
 		}
 
 		if (landTimer > maxLandFrame)
@@ -600,6 +598,14 @@ function u64 SmoothSonicAnim (u8 animationSprite)
 function u64 SetSpriteKey(u64 framecounter, u8 framelength, u8 animlength, u64 animName)
 {
 	u16 animationSpriteEx = (framecounter >> framelength) % animlength
+	u64 key = stringformat(animName, animationSpriteEx)
+
+	return key
+}
+
+function u64 SetSpriteKey(u64 framecounter, u8 framelength, u8 animlength, u64 animName, u8 animSpriteMod)
+{
+	u16 animationSpriteEx = ((framecounter >> framelength) % animlength) + animSpriteMod
 	u64 key = stringformat(animName, animationSpriteEx)
 
 	return key
