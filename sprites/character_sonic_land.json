@@ -1,7 +1,0 @@
-{
-    "sonic_land_0": { "File": "character_sonic_land.bmp", "Rect":  "0,0,48,48", "Center": "24,28" },
-    "sonic_land_1": { "File": "character_sonic_land.bmp", "Rect":  "48,0,48,48", "Center": "24,28" },
-    "sonic_land_2": { "File": "character_sonic_land.bmp", "Rect":  "96,0,48,48", "Center": "24,28" },
-    "sonic_land_3": { "File": "character_sonic_land.bmp", "Rect":  "144,0,48,48", "Center": "24,28" },
-    "sonic_land_4": { "File": "character_sonic_land.bmp", "Rect":  "192,0,48,48", "Center": "24,28" }
-}

@@ -1,8 +1,0 @@
-{
-    "sonic_springlaunch_0" :  { "File": "character_sonic_springlaunch.bmp", "Rect": "0,0,24,48", "Center": "12,24" },
-    "sonic_springlaunch_1" :  { "File": "character_sonic_springlaunch.bmp", "Rect": "24,0,24,48", "Center": "12,24" },
-    "sonic_falltransition_0" :  { "File": "character_sonic_falltransition.bmp", "Rect": "0,0,28,48", "Center": "13,24" },
-    "sonic_falltransition_1" :  { "File": "character_sonic_falltransition.bmp", "Rect": "28,0,28,48", "Center": "14,24" },
-    "sonic_falltransition_2" :  { "File": "character_sonic_falltransition.bmp", "Rect": "56,0,28,48", "Center": "14,24" },
-    "sonic_falltransition_3" :  { "File": "character_sonic_falltransition.bmp", "Rect": "84,0,28,48", "Center": "14,24" }
-}

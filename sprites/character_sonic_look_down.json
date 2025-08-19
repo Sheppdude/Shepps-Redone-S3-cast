@@ -1,8 +1,0 @@
-{
-    "sonic_look_down_0": { "File": "character_sonic_look_down.bmp", "Rect":  "0,0,36,40", "Center": "16,20" },
-    "sonic_look_down_1": { "File": "character_sonic_look_down.bmp", "Rect":  "36,0,36,40", "Center": "16,20" },
-    "sonic_look_down_2": { "File": "character_sonic_look_down.bmp", "Rect":  "72,0,36,40", "Center": "16,20" },
-    "sonic_look_down_3": { "File": "character_sonic_look_down.bmp", "Rect":  "108,0,36,40", "Center": "16,20" },
-    "sonic_look_down_4": { "File": "character_sonic_look_down.bmp", "Rect":  "144,0,36,40", "Center": "16,20" },
-    "sonic_look_down_5": { "File": "character_sonic_look_down.bmp", "Rect":  "180,0,36,40", "Center": "16,20" }
-}

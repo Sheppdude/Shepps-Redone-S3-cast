@@ -307,6 +307,8 @@ function u64 SonicAnim(u8 animationSprite)
 	    	maxLandFrame = 18
 
 			u8 animSpriteMod = 1 // Modifies animationSpriteEx by adding a u8 value at the end of it, useful for displaying certain frames
+			animSpriteMod = smoothAnimation ? 0 : 1
+
 			key = SetSpriteKey(landTimer, (smoothAnimation ? 2 : 3), (smoothAnimation ? 5 : 3), "sonic_land_%d", animSpriteMod)
 		}
 
