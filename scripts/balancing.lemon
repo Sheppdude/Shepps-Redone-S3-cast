@@ -109,6 +109,9 @@ function void checkForBalancing()
 		else
 			char.flags &= ~char.flag.FACING_LEFT
 
+		/*
+		Knuckles will be a bit broken for now...
+
 		if (char.character == CHARACTER_KNUCKLES)
 		{
 			if (wasFacingLeft != nowFacingLeft)
@@ -118,5 +121,6 @@ function void checkForBalancing()
 				char.animation.timer = 0
 			}
 		}
+		*/
 	}
 }

@@ -298,8 +298,7 @@ function u64 SonicAnim(u8 animationSprite)
 	if (smoothAnimation == 1 && !super.active)
 		key = SmoothSonicAnim(animationSprite)
 
-
-	if ((char.flags & char.flag.IN_AIR) == 0 && isInAir && char.spindash != 0x80 && char.state != char.state.BRAKING)
+	if ((char.flags & char.flag.IN_AIR) == 0 && isInAir && char.spindash != 0x80)
 	{
 		if (abs(char.groundspeed) > 0x250 && (animationSprite >= 0x01 && animationSprite <= 0x30))
 		{
@@ -307,7 +306,7 @@ function u64 SonicAnim(u8 animationSprite)
 	    	maxLandFrame = 18
 
 			u8 animSpriteMod = 1 // Modifies animationSpriteEx by adding a u8 value at the end of it, useful for displaying certain frames
-			animSpriteMod = smoothAnimation ? 0 : 1
+			animSpriteMod = smoothAnimation ? 0 : 1 // Want it to add one frame when smooth animations are disabled
 
 			key = SetSpriteKey(landTimer, (smoothAnimation ? 2 : 3), (smoothAnimation ? 5 : 3), "sonic_land_%d", animSpriteMod)
 		}
@@ -324,7 +323,7 @@ function u64 SonicAnim(u8 animationSprite)
 
 	/*
 	This is some (currently) unused code that may be used in a newer version if I can get it working
-	Also, why are you even reading this? 
+	Also, why are you even reading this?
 	if (animationSprite >= 0x80 && animationSprite <= 0x85)
 	{
 		monkeyBarTimer++
@@ -379,7 +378,6 @@ function u64 SonicAnim(u8 animationSprite)
 				key = stringformat((peelOutStyle == 0 ? "sonic_peelout_%d" : "sonic_peelout_mania_%d"), animationSpriteEx)
 			}
 		}
-		
 	}
 	return key
 }
