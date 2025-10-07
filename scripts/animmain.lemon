@@ -387,7 +387,7 @@ function u64 SmoothSonicAnim (u8 animationSprite)
 	u64 key
 	u16 animationSpriteEx
 
-	u64 framecounter = level.framecounter // Is the default framecounter unless specified otherwise, to avoid programming other stuff later
+	u64 framecounter = level.framecounter // Is the default framecounter unless specified otherwise, so that it can be changed if needed
 	u64 animName // Name of the sprite string, has to be formatted to include the frame number
 	u8 framelength // How long an animation frame should last
 	u8 animlength // Length of the animation, measured in frames
