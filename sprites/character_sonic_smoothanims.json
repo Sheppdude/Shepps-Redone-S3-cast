@@ -114,7 +114,7 @@
     "trimmed": true,
     "spriteSourceSize": { "x": 9, "y": 9, "w": 30, "h": 30 },
     "sourceSize": { "w": 48, "h": 48 },
-    "duration": 50 
+    "duration": 50
    },
    {
     "filename": "character_sonic_smoothanims #Roll 13.aseprite",
@@ -1180,7 +1180,7 @@
    },
    {
     "filename": "character_sonic_smoothanims #Hang 5.aseprite",
-    "frame": { "x": 181, "y": 461, "w": 35, "h": 39 },
+    "frame": { "x": 106, "y": 461, "w": 35, "h": 39 },
     "rotated": false,
     "trimmed": true,
     "spriteSourceSize": { "x": 8, "y": 0, "w": 35, "h": 39 },
@@ -1207,7 +1207,7 @@
    },
    {
     "filename": "character_sonic_smoothanims #Hang 8.aseprite",
-    "frame": { "x": 218, "y": 461, "w": 27, "h": 48 },
+    "frame": { "x": 181, "y": 461, "w": 27, "h": 48 },
     "rotated": false,
     "trimmed": true,
     "spriteSourceSize": { "x": 8, "y": 0, "w": 27, "h": 48 },
@@ -1216,16 +1216,16 @@
    },
    {
     "filename": "character_sonic_smoothanims #Hang 9.aseprite",
-    "frame": { "x": 247, "y": 461, "w": 29, "h": 48 },
+    "frame": { "x": 210, "y": 461, "w": 37, "h": 48 },
     "rotated": false,
     "trimmed": true,
-    "spriteSourceSize": { "x": 8, "y": 0, "w": 29, "h": 48 },
+    "spriteSourceSize": { "x": 8, "y": 0, "w": 37, "h": 48 },
     "sourceSize": { "w": 48, "h": 48 },
     "duration": 100
    },
    {
     "filename": "character_sonic_smoothanims #Hang 10.aseprite",
-    "frame": { "x": 278, "y": 461, "w": 34, "h": 48 },
+    "frame": { "x": 249, "y": 461, "w": 34, "h": 48 },
     "rotated": false,
     "trimmed": true,
     "spriteSourceSize": { "x": 5, "y": 0, "w": 34, "h": 48 },
@@ -1234,7 +1234,7 @@
    },
    {
     "filename": "character_sonic_smoothanims #Hang 11.aseprite",
-    "frame": { "x": 314, "y": 461, "w": 29, "h": 45 },
+    "frame": { "x": 285, "y": 461, "w": 29, "h": 45 },
     "rotated": false,
     "trimmed": true,
     "spriteSourceSize": { "x": 8, "y": 0, "w": 29, "h": 45 },
@@ -1243,7 +1243,7 @@
    },
    {
     "filename": "character_sonic_smoothanims #Hang 12.aseprite",
-    "frame": { "x": 345, "y": 461, "w": 26, "h": 48 },
+    "frame": { "x": 316, "y": 461, "w": 26, "h": 48 },
     "rotated": false,
     "trimmed": true,
     "spriteSourceSize": { "x": 8, "y": 0, "w": 26, "h": 48 },
@@ -1252,7 +1252,7 @@
    },
    {
     "filename": "character_sonic_smoothanims #Hang 13.aseprite",
-    "frame": { "x": 373, "y": 461, "w": 26, "h": 48 },
+    "frame": { "x": 344, "y": 461, "w": 26, "h": 48 },
     "rotated": false,
     "trimmed": true,
     "spriteSourceSize": { "x": 7, "y": 0, "w": 26, "h": 48 },
@@ -1261,7 +1261,7 @@
    },
    {
     "filename": "character_sonic_smoothanims #Hang 14.aseprite",
-    "frame": { "x": 401, "y": 461, "w": 27, "h": 48 },
+    "frame": { "x": 372, "y": 461, "w": 27, "h": 48 },
     "rotated": false,
     "trimmed": true,
     "spriteSourceSize": { "x": 7, "y": 0, "w": 27, "h": 48 },
@@ -1270,7 +1270,7 @@
    },
    {
     "filename": "character_sonic_smoothanims #Hang 15.aseprite",
-    "frame": { "x": 430, "y": 461, "w": 30, "h": 47 },
+    "frame": { "x": 401, "y": 461, "w": 30, "h": 47 },
     "rotated": false,
     "trimmed": true,
     "spriteSourceSize": { "x": 6, "y": 0, "w": 30, "h": 47 },
@@ -1279,7 +1279,7 @@
    },
    {
     "filename": "character_sonic_smoothanims #Hang 16.aseprite",
-    "frame": { "x": 462, "y": 461, "w": 34, "h": 46 },
+    "frame": { "x": 433, "y": 461, "w": 34, "h": 46 },
     "rotated": false,
     "trimmed": true,
     "spriteSourceSize": { "x": 5, "y": 0, "w": 34, "h": 46 },
@@ -1288,7 +1288,7 @@
    },
    {
     "filename": "character_sonic_smoothanims #Hang 17.aseprite",
-    "frame": { "x": 498, "y": 461, "w": 31, "h": 47 },
+    "frame": { "x": 469, "y": 461, "w": 31, "h": 47 },
     "rotated": false,
     "trimmed": true,
     "spriteSourceSize": { "x": 7, "y": 0, "w": 31, "h": 47 },
@@ -1297,7 +1297,7 @@
    },
    {
     "filename": "character_sonic_smoothanims #Hang 18.aseprite",
-    "frame": { "x": 531, "y": 461, "w": 28, "h": 48 },
+    "frame": { "x": 502, "y": 461, "w": 28, "h": 48 },
     "rotated": false,
     "trimmed": true,
     "spriteSourceSize": { "x": 7, "y": 0, "w": 28, "h": 48 },
@@ -1306,7 +1306,7 @@
    },
    {
     "filename": "character_sonic_smoothanims #Hang 19.aseprite",
-    "frame": { "x": 561, "y": 461, "w": 26, "h": 48 },
+    "frame": { "x": 532, "y": 461, "w": 26, "h": 48 },
     "rotated": false,
     "trimmed": true,
     "spriteSourceSize": { "x": 7, "y": 0, "w": 26, "h": 48 },
@@ -1315,7 +1315,7 @@
    },
    {
     "filename": "character_sonic_smoothanims #Monkey Bars 0.aseprite",
-    "frame": { "x": 218, "y": 461, "w": 27, "h": 48 },
+    "frame": { "x": 181, "y": 461, "w": 27, "h": 48 },
     "rotated": false,
     "trimmed": true,
     "spriteSourceSize": { "x": 8, "y": 0, "w": 27, "h": 48 },
@@ -1324,16 +1324,16 @@
    },
    {
     "filename": "character_sonic_smoothanims #Monkey Bars 1.aseprite",
-    "frame": { "x": 247, "y": 461, "w": 29, "h": 48 },
+    "frame": { "x": 210, "y": 461, "w": 37, "h": 48 },
     "rotated": false,
     "trimmed": true,
-    "spriteSourceSize": { "x": 8, "y": 0, "w": 29, "h": 48 },
+    "spriteSourceSize": { "x": 8, "y": 0, "w": 37, "h": 48 },
     "sourceSize": { "w": 48, "h": 48 },
     "duration": 100
    },
    {
     "filename": "character_sonic_smoothanims #Monkey Bars 2.aseprite",
-    "frame": { "x": 278, "y": 461, "w": 34, "h": 48 },
+    "frame": { "x": 249, "y": 461, "w": 34, "h": 48 },
     "rotated": false,
     "trimmed": true,
     "spriteSourceSize": { "x": 5, "y": 0, "w": 34, "h": 48 },
@@ -1342,7 +1342,7 @@
    },
    {
     "filename": "character_sonic_smoothanims #Monkey Bars 3.aseprite",
-    "frame": { "x": 314, "y": 461, "w": 29, "h": 45 },
+    "frame": { "x": 285, "y": 461, "w": 29, "h": 45 },
     "rotated": false,
     "trimmed": true,
     "spriteSourceSize": { "x": 8, "y": 0, "w": 29, "h": 45 },
@@ -1351,7 +1351,7 @@
    },
    {
     "filename": "character_sonic_smoothanims #Monkey Bars 4.aseprite",
-    "frame": { "x": 345, "y": 461, "w": 26, "h": 48 },
+    "frame": { "x": 316, "y": 461, "w": 26, "h": 48 },
     "rotated": false,
     "trimmed": true,
     "spriteSourceSize": { "x": 8, "y": 0, "w": 26, "h": 48 },
@@ -1360,7 +1360,7 @@
    },
    {
     "filename": "character_sonic_smoothanims #Monkey Bars 5.aseprite",
-    "frame": { "x": 373, "y": 461, "w": 26, "h": 48 },
+    "frame": { "x": 344, "y": 461, "w": 26, "h": 48 },
     "rotated": false,
     "trimmed": true,
     "spriteSourceSize": { "x": 7, "y": 0, "w": 26, "h": 48 },
@@ -1369,7 +1369,7 @@
    },
    {
     "filename": "character_sonic_smoothanims #Monkey Bars 6.aseprite",
-    "frame": { "x": 401, "y": 461, "w": 27, "h": 48 },
+    "frame": { "x": 372, "y": 461, "w": 27, "h": 48 },
     "rotated": false,
     "trimmed": true,
     "spriteSourceSize": { "x": 7, "y": 0, "w": 27, "h": 48 },
@@ -1378,7 +1378,7 @@
    },
    {
     "filename": "character_sonic_smoothanims #Monkey Bars 7.aseprite",
-    "frame": { "x": 430, "y": 461, "w": 30, "h": 47 },
+    "frame": { "x": 401, "y": 461, "w": 30, "h": 47 },
     "rotated": false,
     "trimmed": true,
     "spriteSourceSize": { "x": 6, "y": 0, "w": 30, "h": 47 },
@@ -1387,7 +1387,7 @@
    },
    {
     "filename": "character_sonic_smoothanims #Monkey Bars 8.aseprite",
-    "frame": { "x": 462, "y": 461, "w": 34, "h": 46 },
+    "frame": { "x": 433, "y": 461, "w": 34, "h": 46 },
     "rotated": false,
     "trimmed": true,
     "spriteSourceSize": { "x": 5, "y": 0, "w": 34, "h": 46 },
@@ -1396,7 +1396,7 @@
    },
    {
     "filename": "character_sonic_smoothanims #Monkey Bars 9.aseprite",
-    "frame": { "x": 498, "y": 461, "w": 31, "h": 47 },
+    "frame": { "x": 469, "y": 461, "w": 31, "h": 47 },
     "rotated": false,
     "trimmed": true,
     "spriteSourceSize": { "x": 7, "y": 0, "w": 31, "h": 47 },
@@ -1405,7 +1405,7 @@
    },
    {
     "filename": "character_sonic_smoothanims #Monkey Bars 10.aseprite",
-    "frame": { "x": 531, "y": 461, "w": 28, "h": 48 },
+    "frame": { "x": 502, "y": 461, "w": 28, "h": 48 },
     "rotated": false,
     "trimmed": true,
     "spriteSourceSize": { "x": 7, "y": 0, "w": 28, "h": 48 },
@@ -1414,7 +1414,7 @@
    },
    {
     "filename": "character_sonic_smoothanims #Monkey Bars 11.aseprite",
-    "frame": { "x": 561, "y": 461, "w": 26, "h": 48 },
+    "frame": { "x": 532, "y": 461, "w": 26, "h": 48 },
     "rotated": false,
     "trimmed": true,
     "spriteSourceSize": { "x": 7, "y": 0, "w": 26, "h": 48 },
