@@ -1,10 +1,10 @@
 {
 	"Metadata": {
-		"Name": "Sheppdude's Cast",
+		"Name": "Sheppdude's Cast-Dev Release",
 		"Author": "Sheppdude",
-		"Description": "My attempt to make more refined and expressive character sprites (May or may not have accomplished it's task)",
+		"Description": "My attempt to make more refined and expressive character sprites (May or may not have accomplished it's task) Also this is a developer version, very cool",
 		"URL": "https://gamebanana.com/wips/91453",
-		"ModVersion": "0.0.5.1b"
+		"ModVersion": "0.0.x-beta"
 	},
 	"Settings": {
 		"List": [

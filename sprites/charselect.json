@@ -1,6 +1,6 @@
 {
 
 	// Character selection icons
-	"charselect_sonic":    { "File": "charselect_sonic.bmp", "Center": "17,20" }
+	"charselect_sonic":    { "File": "sonic/charselect_sonic.bmp", "Center": "17,20" }
 
 }
